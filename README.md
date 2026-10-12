@@ -4,11 +4,9 @@
 
 ![ArcGIS Pro](https://img.shields.io/badge/ArcGIS%20Pro-3.x-blue?logo=esri&logoColor=white)
 ![Enterprise Geodatabase](https://img.shields.io/badge/Enterprise%20Geodatabase-PostgreSQL%2FPostGIS-green)
-![Python](https://img.shields.io/badge/Python-geopandas%20%7C%20rasterio-yellow)
-![License: MIT](https://img.shields.io/badge/Code-MIT-lightgrey)
 ![Data: CC BY 4.0](https://img.shields.io/badge/Data-CC%20BY%204.0-orange)
 
-A reproducible GIS demonstration built primarily in **ArcGIS Pro with an Enterprise Geodatabase (PostgreSQL/PostGIS)**, combined with Python scripts for diagnostics. It combines open Council, LINZ and Stats NZ data to (1) classify parcels by current building status, (2) map environmental and geotechnical constraints, and (3) score residential zones on infrastructure proximity, parcel size, terrain and flood exposure. The output is a parcel table and three maps intended to prioritise which parcels deserve further planning, engineering and consent assessment — not to confirm development feasibility.
+A reproducible GIS demonstration built in **ArcGIS Pro against an Enterprise Geodatabase (PostgreSQL/PostGIS)**. It combines open Council, LINZ and Stats NZ data to (1) classify parcels by current building status, (2) map environmental and geotechnical constraints, and (3) score residential zones on infrastructure proximity, parcel size, terrain and flood exposure. The output is a parcel table and three maps intended to prioritise which parcels deserve further planning, engineering and consent assessment — not to confirm development feasibility.
 
 ---
 
@@ -76,7 +74,7 @@ All layers reprojected to EPSG:2193 and clipped to the study area before analysi
 | Scoring | `Calculate Field` ( Arcade / Python expressions ) | Rescale each indicator to 1–5, weighted overlay |
 | Mapping | Layout view, graduated colours, inset map, scale bar | Produce the three final maps at 300 DPI |
 
-Python (geopandas, rasterio, numpy) is used for distribution diagnostics, sensitivity checks and CSV export, but the production analysis runs in ArcGIS Pro to demonstrate enterprise geodatabase workflows.
+Python (geopandas, rasterio, numpy) is used for distribution diagnostics and CSV export; the production analysis runs in ArcGIS Pro to demonstrate enterprise geodatabase workflows.
 
 ---
 
