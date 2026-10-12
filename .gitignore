@@ -1,0 +1,64 @@
+# === Raw GIS data (do not commit — large, downloadable from sources) ===
+*.shp
+*.shx
+*.dbf
+*.sbn
+*.sbx
+*.prj
+*.cpg
+*.shp.xml
+*.gpkg
+*.gdb
+*.mdb
+*.accdb
+*.sde
+*.tif
+*.tiff
+*.img
+*.hgt
+*.dem
+*.asc
+*.bil
+*.flt
+*.adf
+
+# === Archives and installers ===
+*.zip
+*.7z
+*.rar
+*.tar
+*.gz
+
+# === PDFs (large reference docs) ===
+*.pdf
+
+# === Python ===
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.env
+.ipynb_checkpoints/
+
+# === QGIS / ArcGIS ===
+*.qgs
+*.qgz
+*.aprx
+*.bak
+*.lock
+
+# === OS ===
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# === Working directories (keep repo clean) ===
+output_images/
+statsnz-statistical-area-2-2026-GPKG/
+data/
+*.log
+
+# LINZ metadata sidecars
+*.txt
+*.xml
