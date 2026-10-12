@@ -6,6 +6,22 @@ A reproducible GIS demonstration that combines open Council, LINZ and Stats NZ d
 
 ---
 
+## Results
+
+### 1. Development status — Tier A (vacant) / B (infill) / C (other)
+
+![Development status map](images/development_status_map.png)
+
+### 2. Environmental constraints — Flood, wetland, ecological, liquefaction
+
+![Environmental constraints map](images/environmental_constraints.png)
+
+### 3. Suitability score — Continuous 1–5 across 20,984 residential parcels
+
+![Suitability score map](images/suitability_score.png)
+
+---
+
 ## Study area
 
 Nine inner south-west suburbs under NZTM 2000 (EPSG:2193):
@@ -91,31 +107,17 @@ Compare rank stability under alternative weight sets (e.g. equal weights, flood-
 
 ---
 
-## Outputs
+## Output files
 
-### Maps
-
-**1. Development status** — Tier A (vacant) / B (infill) / C (other) classification
-
-![Development status map](images/development_status_map.png)
-
-**2. Environmental constraints** — Flood (blue), wetland (cyan), ecological (dark green), liquefaction (purple hatch)
-
-![Environmental constraints map](images/environmental_constraints.png)
-
-**3. Suitability score** — Continuous 1–5 total score across residential parcels, with SA2 suburb boundaries and a Halswell North inset
-
-![Suitability score map](images/suitability_score.png)
-
-### Parcel table
-
-`output/candidate_parcels_unified_score.csv` — one row per scored parcel, including rank, suburb, area, dimension scores, total score and constraint flags.
+- `output/candidate_parcels_unified_score.csv` — one row per scored parcel, including rank, suburb, area, dimension scores, total score and constraint flags.
+- `output/parcel_assessment_table.csv` — per-parcel assessment with reasons and next-step notes.
+- `output/top10_candidate_parcels.csv` — top 10 parcels by final score.
 
 ### Reproduction scripts
 
-- `rebuild_unified_score.py` — Python (geopandas + rasterio) end-to-end scoring
-- `parcel_screening.py` — per-parcel assessment with reasons and next-step notes
-- `analyze_score_distribution_v2.py` — distance-band scoring and distribution diagnostics
+- `scripts/rebuild_unified_score.py` — Python (geopandas + rasterio) end-to-end scoring
+- `scripts/parcel_screening.py` — per-parcel assessment with reasons and next-step notes
+- `scripts/analyze_score_distribution_v2.py` — distance-band scoring and distribution diagnostics
 
 The enterprise workflow was additionally built in **ArcGIS Pro + Enterprise Geodatabase (PostgreSQL/PostGIS)** with a `Suitability_Analysis` feature dataset, coded attribute domains (`tier_domain`, `constraint_domain`), and standard geoprocessing tools (Intersect, Dissolve, Near, Zonal Statistics).
 
@@ -142,9 +144,9 @@ pip install geopandas rasterio numpy matplotlib
 # 1. Download open data (see data sources table)
 # 2. Reproject all layers to EPSG:2193 and clip to study bbox
 # 3. Run parcel screening
-python parcel_screening.py
+python scripts/parcel_screening.py
 # 4. Run unified scoring
-python rebuild_unified_score.py
+python scripts/rebuild_unified_score.py
 # 5. Inspect outputs in output/
 ```
 
