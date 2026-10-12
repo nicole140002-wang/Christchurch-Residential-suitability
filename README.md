@@ -95,9 +95,17 @@ Compare rank stability under alternative weight sets (e.g. equal weights, flood-
 
 ### Maps
 
-1. **Development status map** — Tier A / B / C classification
-2. **Environmental constraints map** — Flood (blue), wetland (cyan), ecological (dark green), liquefaction (purple hatch)
-3. **Suitability score map** — Continuous 1–5 total score across residential parcels, with SA2 suburb boundaries and a Halswell North inset
+**1. Development status** — Tier A (vacant) / B (infill) / C (other) classification
+
+![Development status map](images/development_status_map.png)
+
+**2. Environmental constraints** — Flood (blue), wetland (cyan), ecological (dark green), liquefaction (purple hatch)
+
+![Environmental constraints map](images/environmental_constraints.png)
+
+**3. Suitability score** — Continuous 1–5 total score across residential parcels, with SA2 suburb boundaries and a Halswell North inset
+
+![Suitability score map](images/suitability_score.png)
 
 ### Parcel table
 
