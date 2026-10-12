@@ -2,7 +2,13 @@
 
 **Indicative parcel-level screening for residential development opportunity in inner south-west Christchurch, New Zealand.**
 
-A reproducible GIS demonstration that combines open Council, LINZ and Stats NZ data to (1) classify parcels by current building status, (2) map environmental and geotechnical constraints, and (3) score residential zones on infrastructure proximity, parcel size, terrain and flood exposure. The output is a parcel table and three maps intended to prioritise which parcels deserve further planning, engineering and consent assessment — not to confirm development feasibility.
+![ArcGIS Pro](https://img.shields.io/badge/ArcGIS%20Pro-3.x-blue?logo=esri&logoColor=white)
+![Enterprise Geodatabase](https://img.shields.io/badge/Enterprise%20Geodatabase-PostgreSQL%2FPostGIS-green)
+![Python](https://img.shields.io/badge/Python-geopandas%20%7C%20rasterio-yellow)
+![License: MIT](https://img.shields.io/badge/Code-MIT-lightgrey)
+![Data: CC BY 4.0](https://img.shields.io/badge/Data-CC%20BY%204.0-orange)
+
+A reproducible GIS demonstration built primarily in **ArcGIS Pro with an Enterprise Geodatabase (PostgreSQL/PostGIS)**, combined with Python scripts for diagnostics. It combines open Council, LINZ and Stats NZ data to (1) classify parcels by current building status, (2) map environmental and geotechnical constraints, and (3) score residential zones on infrastructure proximity, parcel size, terrain and flood exposure. The output is a parcel table and three maps intended to prioritise which parcels deserve further planning, engineering and consent assessment — not to confirm development feasibility.
 
 ---
 
@@ -50,6 +56,27 @@ Total extent ≈ 12 km × 6 km. 20,984 parcels zoned Residential in the Christch
 | Terrain (slope) | LINZ | Christchurch LiDAR 1 m DEM 2020–21 (layer 109641) | CC BY 4.0 |
 
 All layers reprojected to EPSG:2193 and clipped to the study area before analysis.
+
+---
+
+## Tools & geoprocessing workflow
+
+**Primary platform:** ArcGIS Pro 3.x against an Enterprise Geodatabase (PostgreSQL 18 + PostGIS 3.6), with `Enable Enterprise Geodatabase`, a `Suitability_Analysis` feature dataset, and coded attribute domains (`tier_domain`, `constraint_domain`).
+
+| Stage | ArcGIS Pro tool | Purpose |
+|---|---|---|
+| Data loading | `Feature Class To Feature Class`, `Table To Table` | Import shp/geojson into sde schema |
+| Coherence | `Project`, `Define Projection` | Standardise all layers to NZTM 2000 (EPSG:2193) |
+| Clipping | `Select Layer By Location`, `Clip`, `Extract by Mask` | Restrict every layer to study area / SA2 boundary |
+| Building counting | `Feature To Point` → `Spatial Join` | Convert building footprints to centroids, count per parcel |
+| Zoning filter | `Add Join` + `Calculate Field` | Tag residential parcels from DPZone (20,984 out of 23,866) |
+| Constraints | `Intersect` → `Dissolve` → `Join Field` | Compute flood / wetland / ecological / liquefaction covered area per parcel |
+| Pipe proximity | `Near` (road, water, sewer pipes) | Calculate Euclidean distance from each parcel to nearest pipe |
+| Slope | `Slope` (LiDAR DEM raster) → `Zonal Statistics as Table` | Mean slope degrees per parcel from 1 m LiDAR |
+| Scoring | `Calculate Field` ( Arcade / Python expressions ) | Rescale each indicator to 1–5, weighted overlay |
+| Mapping | Layout view, graduated colours, inset map, scale bar | Produce the three final maps at 300 DPI |
+
+Python (geopandas, rasterio, numpy) is used for distribution diagnostics, sensitivity checks and CSV export, but the production analysis runs in ArcGIS Pro to demonstrate enterprise geodatabase workflows.
 
 ---
 
